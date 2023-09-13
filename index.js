@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
+const mongoose = require("mongoose")
 dotenv.config()
 
 const app = express()
@@ -11,11 +12,18 @@ app.get('/', (req, res) => {
     res.send("Welcome to the portal")
 })
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: "Success",
+        message: "All Good!! Server is running"
+    })
+})
+
 app.listen(process.env.PORT, (error) => {
-    if (!error) {
-        console.log(`server is running on the http://localhost:${process.env.PORT}/`)
-    }
-    else {
-        console.log(error)
-    }
+    mongoose
+        .connect(process.env.MONGODB_URL)
+        .then(
+            console.log(`server is running on http://localhost:${process.env.PORT}`)
+        )
+        .catch((err) => console.log(err))
 })
