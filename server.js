@@ -2,22 +2,14 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const register = require("./routes/register")
+const login = require("./routes/login")
 dotenv.config()
 
 const app = express()
 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-
-
-//mongoose database model
-const User = mongoose.model('user', {
-    name: String,
-    email: String,
-    mobile: Number,
-    password: String,
-})
-
 
 app.get('/', (req, res) => {
     res.send("Welcome to the portal")
@@ -25,14 +17,26 @@ app.get('/', (req, res) => {
 
 app.get('/health', (req, res) => {
     res.status(200).json({
-        status: "Success",
-        message: "All Good!! Server is running"
+        service: "job-listing-server",
+        status: "Active",
+        time: new Date(),
     })
 })
 
+app.use('/register', register)
+app.use('/login', login)
+
+
+
+
+
+//server listening
 app.listen(process.env.PORT, (error) => {
     mongoose
-        .connect(process.env.MONGODB_URL)
+        .connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
         .then(
             console.log(`server is running on http://localhost:${process.env.PORT}`)
         )
