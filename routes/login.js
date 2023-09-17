@@ -36,10 +36,8 @@ router.post('/', async (req, res) => {
         }
     }
     catch (error) {
-        res.status(500).json({
-            status: failed,
-        })
-        console.log(error)
+        const err = new Error("Something went wrong! Please try after some time.")
+        next(err)
     }
 })
 

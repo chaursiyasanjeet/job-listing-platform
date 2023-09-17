@@ -31,7 +31,8 @@ router.post('/', async (req, res) => {
 
     }
     catch (error) {
-        console.log("Register Error:", error)
+        const err = new Error("Something went wrong! Please try after some time.")
+        next(err)
     }
 })
 

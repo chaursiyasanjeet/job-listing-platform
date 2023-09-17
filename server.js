@@ -11,10 +11,6 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-    res.send("Welcome to the portal")
-})
-
 app.get('/health', (req, res) => {
     res.status(200).json({
         service: "job-listing-server",
@@ -23,12 +19,29 @@ app.get('/health', (req, res) => {
     })
 })
 
+
+
 app.use('/register', register)
 app.use('/login', login)
 
 
 
+//error handler middleware
+app.use((req, res, next) => {
+    const err = new Error('page not found');
+    err.status = 404;
+    next(err)
+})
 
+//error handler
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).json({
+        error: {
+            status: err.status || 500,
+            message: err.message
+        }
+    })
+})
 
 //server listening
 app.listen(process.env.PORT, (error) => {
