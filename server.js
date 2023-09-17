@@ -4,6 +4,8 @@ const dotenv = require('dotenv')
 const mongoose = require("mongoose")
 const register = require("./routes/register")
 const login = require("./routes/login")
+const addjob = require("./routes/addJob")
+const jwt = require("jsonwebtoken")
 dotenv.config()
 
 const app = express()
@@ -19,10 +21,24 @@ app.get('/health', (req, res) => {
     })
 })
 
+//middleware for user login status
+const isLoggedIn = (req, res, next) => {
+    try {
+        const jwtToken = req.headers.token
+        const user = jwt.verify(jwtToken, process.env.JWT_SECRET)
+        req.userExist = user
+        next()
+    }
+    catch (error) {
+        console.log(error)
+        next(new Error("Please login first"))
+    }
+}
 
-
+//routes
 app.use('/register', register)
 app.use('/login', login)
+app.use('/addjob', isLoggedIn, addjob)
 
 
 

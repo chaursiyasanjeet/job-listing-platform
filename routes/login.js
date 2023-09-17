@@ -7,8 +7,11 @@ const jwt = require("jsonwebtoken")
 router.post('/', async (req, res) => {
     try {
         const { email, password } = req.body
+
+        //checking for user exist
         const userExist = await User.findOne({ email })
 
+        //if user found
         if (userExist) {
             const passwdMatched = await bcrypt.compare(password, userExist.password);
 
@@ -20,7 +23,7 @@ router.post('/', async (req, res) => {
             }
 
 
-            const jwtToken = jwt.sign(userExist.toJSON(), process.env.JWT_SECRET, { expiresIn: 60 })
+            const jwtToken = jwt.sign(userExist.toJSON(), process.env.JWT_SECRET, { expiresIn: 6000 })
             res.json({
                 status: "SUCCESS",
                 message: `${userExist.name} signed in successfully`,
@@ -28,6 +31,7 @@ router.post('/', async (req, res) => {
             })
         }
 
+        //if user not found
         else {
             res.status(500).json({
                 status: "FAILED",
