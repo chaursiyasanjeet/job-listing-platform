@@ -2,8 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const mongoose = require("mongoose")
-const register = require("./routes/register")
-const login = require("./routes/login")
+const auth = require("./routes/auth")
 const addjob = require("./routes/addJob")
 const jwt = require("jsonwebtoken")
 dotenv.config()
@@ -21,25 +20,10 @@ app.get('/health', (req, res) => {
     })
 })
 
-//middleware for user login status
-const isLoggedIn = (req, res, next) => {
-    try {
-        const jwtToken = req.headers.token
-        const user = jwt.verify(jwtToken, process.env.JWT_SECRET)
-        req.userExist = user
-        next()
-    }
-    catch (error) {
-        console.log(error)
-        next(new Error("Please login first"))
-    }
-}
 
 //routes
-app.use('/register', register)
-app.use('/login', login)
-app.use('/addjob', isLoggedIn, addjob)
-
+app.use(auth)
+app.use(addjob)
 
 
 //error handler middleware

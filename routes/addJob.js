@@ -1,10 +1,17 @@
 const express = require("express")
 const router = express.Router()
 const Job = require("../models/job")
+const isLoggedIn = require("../middleware/isLoggedIn")
 
-router.post('/', async (req, res, next) => {
+router.post('/addJob', isLoggedIn, async (req, res, next) => {
     try {
         const { companyName, logoUrl, jobPosition, jobType, mode, location, jobDescription, aboutCompany, skills, additionalIformation } = req.body
+
+        if (!companyName || !logoUrl || !jobPosition || !jobType || !mode || !location || !jobDescription || !aboutCompany || !skills) {
+            res.json({
+                message: "field empty"
+            })
+        }
         const job = new Job({
             companyName, logoUrl, jobPosition, jobType, mode, location, jobDescription, aboutCompany, skills, additionalIformation
         })
