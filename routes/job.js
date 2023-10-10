@@ -3,7 +3,7 @@ const router = express.Router();
 const Job = require("../models/job");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-router.post("/job", isLoggedIn, async (req, res, next) => {
+router.post("/addjob", isLoggedIn, async (req, res, next) => {
   try {
     const {
       companyName,
@@ -57,4 +57,41 @@ router.post("/job", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.put("/editJob/:id", isLoggedIn, async (req, res) => {
+  try {
+    const {
+      companyName,
+      logoUrl,
+      jobPosition,
+      jobType,
+      mode,
+      location,
+      jobDescription,
+      aboutCompany,
+      skills,
+      additionalIformation,
+    } = req.body;
+    const id = req.params.id;
+
+    await Job.findByIdAndUpdate(id, {
+      $set: {
+        companyName,
+        logoUrl,
+        jobPosition,
+        jobType,
+        mode,
+        location,
+        jobDescription,
+        aboutCompany,
+        skills,
+        additionalIformation,
+      },
+    });
+    res.status(200).json({
+      message: "Job detsils updated",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 module.exports = router;
