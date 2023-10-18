@@ -1,0 +1,46 @@
+import styles from "./Navbar.module.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const Navbar = () => {
+  const redirect = useNavigate();
+  const [loggedin, setloggedin] = useState(true);
+  return (
+    <navbar className={styles.nav}>
+      <h3 className={styles.title}>Jobfinder</h3>
+      {loggedin ? (
+        <div className={styles.loginView}>
+          <span
+            onClick={() => {
+              toast.success("Logout successfull");
+              setloggedin(false);
+            }}
+          >
+            Logout
+          </span>
+          <span>Hello! Recruiter</span>
+          <div className={styles.recruiterLogo}>S</div>
+        </div>
+      ) : (
+        <div className={styles.logoutView}>
+          <button onClick={() => redirect("/signin")}>Login</button>
+          <button onClick={() => redirect("/signup")}>Register</button>
+        </div>
+      )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </navbar>
+  );
+};
+export default Navbar;

@@ -72,7 +72,7 @@ const Signin = () => {
           </button>
         </form>
         <div className={styles.signupLink}>
-          Don't have an account?<a href="/">Sign Up</a>
+          Don't have an account?<a href="/signup">Sign Up</a>
         </div>
       </section>
       <div className={styles.pageimage}>Your Personal Job Finder</div>
