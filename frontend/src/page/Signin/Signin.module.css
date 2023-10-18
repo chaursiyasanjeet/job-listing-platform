@@ -1,0 +1,107 @@
+body {
+    overflow: hidden;
+}
+
+.pageimage {
+    height: 100vh;
+    width: 38vw;
+    background-image: url("../../assets/registerpage.png");
+    background-size: cover;
+    position: absolute;
+    right: 0;
+    padding-top: 5vh;
+    font-family: DM Sans;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 58px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
+
+.formContainer {
+    position: absolute;
+    left: 10vw;
+    height: 100vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formtitle {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5vh;
+}
+
+.formtitle>span:first-child {
+    font-family: DM Sans;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3rem;
+    letter-spacing: 0em;
+    color: rgba(0, 0, 0, 1);
+}
+
+.formtitle>span:last-child {
+    font-family: DM Sans;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: 0em;
+    color: rgba(82, 82, 82, 1)
+}
+
+.input {
+    border: 2px solid rgba(194, 194, 194, 1);
+    border-radius: 5px;
+    height: 6vh;
+    width: 24vw;
+    padding: 1vh 0 1vh 3vh;
+    font-family: DM Sans;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.3rem;
+    letter-spacing: 0em;
+    color: rgba(82, 82, 82, 1);
+    margin-bottom: 2vh;
+}
+
+.button {
+    width: 10vw;
+    font-family: DM Sans;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(237, 83, 83, 1);
+    border: none;
+    cursor: pointer;
+    margin-top: 4vh;
+    border-radius: 5px;
+}
+
+.signupLink {
+    font-family: DM Sans;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(82, 82, 82, 1);
+    margin-top: 1vh;
+}
+
+.signupLink>a {
+    color: rgba(0, 0, 0, 1);
+    margin-left: 10px;
+}
