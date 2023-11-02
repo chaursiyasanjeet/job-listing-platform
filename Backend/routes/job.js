@@ -32,6 +32,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       !skills ||
       !salary
     ) {
+      console.log(req.body);
       res.json({
         message: "field empty",
       });

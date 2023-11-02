@@ -4,7 +4,6 @@ import people from "../../assets/people.svg";
 import flag from "../../assets/flag.png";
 import { useNavigate } from "react-router-dom";
 const JobContainer = () => {
-  //   const { loggedIn, setJobId } = useJobContext();
   const navigate = useNavigate();
 
   const getJobDetails = () => {

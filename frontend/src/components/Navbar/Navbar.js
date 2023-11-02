@@ -5,7 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Navbar = () => {
   const redirect = useNavigate();
-  const [loggedin, setloggedin] = useState(true);
+  const tokenTime = JSON.parse(localStorage.getItem("recuirterDetail"));
+  const currentTime = new Date().getTime();
+  const [loggedin, setloggedin] = useState(
+    tokenTime.expiry > currentTime ? true : false
+  );
   return (
     <navbar className={styles.nav}>
       <h3 className={styles.title}>Jobfinder</h3>

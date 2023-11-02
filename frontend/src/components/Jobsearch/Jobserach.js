@@ -7,7 +7,11 @@ import Addjob from "../../page/Addjob/Addjob";
 const Jobsearch = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const tokenTime = JSON.parse(localStorage.getItem("recuirterDetail"));
+  const currentTime = new Date().getTime();
+  const [loggedin, setloggedin] = useState(
+    tokenTime.expiry > currentTime ? true : false
+  );
   const redirect = useNavigate();
 
   const handleSearchChange = (e) => {
@@ -108,7 +112,7 @@ const Jobsearch = () => {
           )}
         </div>
 
-        {loggedIn && (
+        {loggedin && (
           <button className={styles.addjobbtn} onClick={addJobButton}>
             + Add Job
           </button>

@@ -35,7 +35,7 @@ const jobSchema = new mongoose.Schema({
   },
   skills: {
     type: Array,
-    required: false,
+    required: true,
   },
   additionalInformation: {
     type: String,
@@ -43,7 +43,7 @@ const jobSchema = new mongoose.Schema({
   },
   salary: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 

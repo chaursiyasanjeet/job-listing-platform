@@ -37,7 +37,7 @@ const Signin = () => {
           JSON.stringify({
             token: result.jwtToken,
             recuirterName: result.recuirterName,
-            expiry: new Date().getTime() + 10000,
+            expiry: new Date().getTime() + 60 * 60 * 1000,
           })
         );
         toast.success(result.message);

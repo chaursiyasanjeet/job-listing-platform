@@ -3,6 +3,7 @@ import styles from "./Addjob.module.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addjob } from "../../apis/job";
 
 const Addjob = () => {
   const [companyName, setCompanyName] = useState("");
@@ -19,9 +20,29 @@ const Addjob = () => {
 
   const redirect = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Job add successfull");
+    const result = await addjob(
+      companyName,
+      addLogoURL,
+      jobPosition,
+      monthlySalary,
+      jobType,
+      remoteOffice,
+      jobLocation,
+      jobDescription,
+      aboutCompany,
+      skillsRequired,
+      information
+    );
+    if (result.status === 200) {
+      toast.success("Job add successfull");
+      setTimeout(() => {
+        redirect("/");
+      }, 5000);
+    } else {
+      toast.error(result.message);
+    }
   };
 
   const handleJobTypeChange = (e) => {

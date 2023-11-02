@@ -61,7 +61,7 @@ const Signup = () => {
           JSON.stringify({
             token: result2.jwtToken,
             recuirterName: result2.recuirterName,
-            expiry: new Date().getTime() + 10000,
+            expiry: new Date().getTime() + 60 * 60 * 10000,
           })
         );
         toast.success(result.message);
