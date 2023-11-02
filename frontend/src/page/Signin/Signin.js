@@ -2,7 +2,10 @@ import styles from "./Signin.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { login } from "../../apis/auth";
+import { useNavigate } from "react-router-dom";
 const Signin = () => {
+  const redirect = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,26 +22,31 @@ const Signin = () => {
       error = true;
     }
 
-    if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        password
-      )
-    ) {
-      toast.error(
-        "Password should contain at least one uppercase, one lowercase, one number, and one special character"
-      );
-      error = true;
-    }
-
     if (error) return false;
 
     return true;
   };
-  const handleSumbit = (e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault();
     const valid = validateForm(user.email, user.password);
     if (valid) {
-      toast.success("sign succesfully");
+      const result = await login(user.email, user.password);
+      if (result.status === "SUCCESS") {
+        localStorage.setItem(
+          "recuirterDetail",
+          JSON.stringify({
+            token: result.jwtToken,
+            recuirterName: result.recuirterName,
+            expiry: new Date().getTime() + 10000,
+          })
+        );
+        toast.success(result.message);
+        setTimeout(() => {
+          redirect("/");
+        }, 2000);
+      } else {
+        toast.error(result.message);
+      }
     }
   };
   return (

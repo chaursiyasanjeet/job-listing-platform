@@ -2,7 +2,10 @@ import styles from "./Signup.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { register, login } from "../../apis/auth";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const redirect = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -46,11 +49,28 @@ const Signup = () => {
     return true;
   };
 
-  const handleSumbit = (e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault();
     const valid = validateForm(name, email, mobile, password);
     if (valid) {
-      toast.success("Signup succesfully");
+      const result = await register(name, email, mobile, password);
+      if (result.status === "SUCCESS") {
+        const result2 = await login(email, password);
+        localStorage.setItem(
+          "recuirterDetail",
+          JSON.stringify({
+            token: result2.jwtToken,
+            recuirterName: result2.recuirterName,
+            expiry: new Date().getTime() + 10000,
+          })
+        );
+        toast.success(result.message);
+        setTimeout(() => {
+          redirect("/");
+        }, 2000);
+      } else {
+        toast.error(result.mesage);
+      }
     }
   };
 
