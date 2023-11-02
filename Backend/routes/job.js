@@ -17,6 +17,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       aboutCompany,
       skills,
       additionalIformation,
+      salary,
     } = req.body;
 
     if (
@@ -28,7 +29,8 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       !location ||
       !jobDescription ||
       !aboutCompany ||
-      !skills
+      !skills ||
+      !salary
     ) {
       res.json({
         message: "field empty",
@@ -45,6 +47,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       aboutCompany,
       skills,
       additionalIformation,
+      salary,
     });
     await job.save();
     res.status(200).json({
