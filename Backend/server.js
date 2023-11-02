@@ -5,10 +5,12 @@ const mongoose = require("mongoose");
 const auth = require("./routes/auth");
 const job = require("./routes/job");
 const jwt = require("jsonwebtoken");
-dotenv.config();
+const cors = require("cors");
 
+dotenv.config();
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
