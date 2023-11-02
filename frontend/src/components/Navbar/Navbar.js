@@ -12,7 +12,9 @@ const Navbar = () => {
   );
   return (
     <navbar className={styles.nav}>
-      <h3 className={styles.title}>Jobfinder</h3>
+      <h3 className={styles.title} onClick={redirect("/")}>
+        Jobfinder
+      </h3>
       {loggedin ? (
         <div className={styles.loginView}>
           <span
@@ -23,7 +25,7 @@ const Navbar = () => {
           >
             Logout
           </span>
-          <span>Hello! Recruiter</span>
+          <span>Hello! {tokenTime.recuirterName}</span>
           <div className={styles.recruiterLogo}>S</div>
         </div>
       ) : (

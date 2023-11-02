@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Jobsearch.module.css";
 import searchIcon from "../../assets/search.svg";
-import Addjob from "../../page/Addjob/Addjob";
+import { jobsearch } from "../../apis/job";
 
 const Jobsearch = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -50,24 +50,8 @@ const Jobsearch = () => {
     redirect("/addJob");
   };
 
-  //   const getJobListings = useCallback(
-  //     debounce((_searchTerm, _selectedSkills) => {
-  //       axios
-  //         .get(`${BASEURL}/jobs`, {
-  //           params: {
-  //             searchTerm: _searchTerm,
-  //             skills: _selectedSkills.join(","),
-  //           },
-  //         })
-  //         .then((response) => {
-  //           setJobListings(response.data.jobListings);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching data: ", error);
-  //         });
-  //     }, 200),
-  //     []
-  //   );
+  const result = jobsearch();
+  console.log(result);
 
   return (
     <div className={styles.jobsearch}>

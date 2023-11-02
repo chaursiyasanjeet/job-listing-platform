@@ -104,7 +104,7 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
 router.get("/getjobs", async (req, res) => {
   try {
     const jobs = await Job.find(
-      { skills: "react", jobType: "Full time" },
+      {},
       {
         companyName: 1,
         logoUrl: 1,

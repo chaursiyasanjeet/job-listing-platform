@@ -122,7 +122,6 @@ const Addjob = () => {
               placeholder="Enter Location"
               value={jobLocation}
               onChange={(e) => setJobLocation(e.target.value)}
-              disabled={remoteOffice === "Remote"}
             />
           </div>
           <div className={styles.jobinput}>

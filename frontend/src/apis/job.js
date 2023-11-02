@@ -45,3 +45,16 @@ export const addjob = async (
     }
   }
 };
+
+export const jobsearch = async () => {
+  try {
+    const requrl = `${backendURL}/getjobs`;
+
+    const response = await axios.get(requrl);
+    return response;
+  } catch (error) {
+    if (error) {
+      return error.response.data;
+    }
+  }
+};
