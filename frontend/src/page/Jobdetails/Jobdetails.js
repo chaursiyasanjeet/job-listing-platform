@@ -117,7 +117,7 @@ const Jobdetails = () => {
               </div>
               <div className={styles.jobDetailsEighthSection}>
                 <h1>Additional Information</h1>
-                <p>{jobDetails && jobDetails.additonalInformation}</p>
+                <p>{jobDetails && jobDetails.additionalInformation}</p>
               </div>
             </div>
           </>

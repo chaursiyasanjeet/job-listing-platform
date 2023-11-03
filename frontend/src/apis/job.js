@@ -89,17 +89,17 @@ export const editjob = async (
     const requrl = `${backendURL}/editJob/${id}`;
     console.log(requrl);
     const payload = {
-      companyName,
-      addLogoURL,
-      jobPosition,
-      monthlySalary,
-      jobType,
-      remoteOffice,
-      jobLocation,
-      jobDescription,
-      aboutCompany,
-      skillsRequired,
-      information,
+      companyName: companyName,
+      logoUrl: addLogoURL,
+      jobPosition: jobPosition,
+      jobType: jobType,
+      mode: remoteOffice,
+      location: jobLocation,
+      jobDescription: jobDescription,
+      aboutCompany: aboutCompany,
+      skills: skillsRequired,
+      additionalInformation: information,
+      salary: monthlySalary,
     };
 
     const token = JSON.parse(localStorage.getItem("recuirterDetail"));
