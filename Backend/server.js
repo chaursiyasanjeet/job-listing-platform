@@ -12,8 +12,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://job-listing-platform-q6yx.vercel.app"],
-    methods: ["POST", "GET", "PUT"],
+    origin: "https://job-listing-platform-q6yx.vercel.app",
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
