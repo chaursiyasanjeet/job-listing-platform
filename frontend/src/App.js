@@ -4,6 +4,7 @@ import Signin from "./page/Signin/Signin";
 import Addjob from "./page/Addjob/Addjob";
 import Homepage from "./page/Homepage/Homepage";
 import Jobdetails from "./page/Jobdetails/Jobdetails";
+import Editjob from "./page/Editjob/Editjob";
 function App() {
   return (
     <Router>
@@ -12,6 +13,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/addjob" element={<Addjob />} />
+        <Route path="/jobdetails/:id" element={<Jobdetails />} />
+        <Route path="/editjob/:id" element={<Editjob />} />
       </Routes>
     </Router>
   );

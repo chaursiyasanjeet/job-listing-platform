@@ -25,7 +25,7 @@ export const addjob = async (
       jobDescription: jobDescription,
       aboutCompany: aboutCompany,
       skills: skillsRequired,
-      additionalIformation: information,
+      additionalInformation: information,
       salary: monthlySalary,
     };
 
@@ -51,7 +51,66 @@ export const jobsearch = async () => {
     const requrl = `${backendURL}/getjobs`;
 
     const response = await axios.get(requrl);
-    return response;
+    return response.data;
+  } catch (error) {
+    if (error) {
+      return error.response.data;
+    }
+  }
+};
+
+export const getJobDetails = async (id) => {
+  try {
+    const requrl = `${backendURL}/jobdetails/${id}`;
+    const response = await axios.get(requrl);
+    return response.data;
+  } catch (error) {
+    if (error) {
+      return error.response.data;
+    }
+  }
+};
+
+export const editjob = async (
+  id,
+  companyName,
+  addLogoURL,
+  jobPosition,
+  monthlySalary,
+  jobType,
+  remoteOffice,
+  jobLocation,
+  jobDescription,
+  aboutCompany,
+  skillsRequired,
+  information
+) => {
+  try {
+    const requrl = `${backendURL}/editJob/${id}`;
+    console.log(requrl);
+    const payload = {
+      companyName,
+      addLogoURL,
+      jobPosition,
+      monthlySalary,
+      jobType,
+      remoteOffice,
+      jobLocation,
+      jobDescription,
+      aboutCompany,
+      skillsRequired,
+      information,
+    };
+
+    const token = JSON.parse(localStorage.getItem("recuirterDetail"));
+    const config = {
+      headers: {
+        token: token.token,
+      },
+    };
+
+    const response = await axios.put(requrl, payload, config);
+    return response.data;
   } catch (error) {
     if (error) {
       return error.response.data;

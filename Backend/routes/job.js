@@ -49,6 +49,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       skills,
       additionalIformation,
       salary,
+      createdAt: new Date(),
     });
     await job.save();
     res.status(200).json({
@@ -93,6 +94,7 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
       },
     });
     res.status(200).json({
+      status: 200,
       message: "Job details updated",
     });
   } catch (error) {
@@ -113,9 +115,10 @@ router.get("/getjobs", async (req, res) => {
         mode: 1,
         location: 1,
         skills: 1,
+        salary: 1,
       }
     );
-    res.status(200).json({ data: jobs });
+    res.status(200).json({ jobs });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
@@ -128,7 +131,7 @@ router.get("/jobdetails/:id", async (req, res) => {
     if (!jobdetails) {
       return res.status(404).json({ error: "Job details not found" });
     }
-    res.status(200).json({ data: jobdetails });
+    res.status(200).json({ jobdetails });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });

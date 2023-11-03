@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Jobsearch.module.css";
 import searchIcon from "../../assets/search.svg";
@@ -7,12 +7,20 @@ import { jobsearch } from "../../apis/job";
 const Jobsearch = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const tokenTime = JSON.parse(localStorage.getItem("recuirterDetail"));
-  const currentTime = new Date().getTime();
-  const [loggedin, setloggedin] = useState(
-    tokenTime.expiry > currentTime ? true : false
-  );
+  const [loggedin, setloggedin] = useState(false);
   const redirect = useNavigate();
+
+  const tokenTime = JSON.parse(localStorage.getItem("recuirterDetail"));
+  useEffect(() => {
+    const currentTime = new Date().getTime();
+    const logg =
+      tokenTime !== null
+        ? tokenTime.expiry > currentTime
+          ? true
+          : false
+        : false;
+    setloggedin(logg);
+  }, [tokenTime]);
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
@@ -50,9 +58,6 @@ const Jobsearch = () => {
     redirect("/addJob");
   };
 
-  const result = jobsearch();
-  console.log(result);
-
   return (
     <div className={styles.jobsearch}>
       <form className={styles.searchform} onSubmit={handleSearchSubmit}>
@@ -70,8 +75,6 @@ const Jobsearch = () => {
         <div className={styles.selectskills}>
           <select value={selectedSkills} onChange={handleSelectChange}>
             <option value="">Skills</option>
-            <option value="React">React</option>
-            <option value="Html">Html</option>
             {/* {skills.map((skill, index) => {
               return <option key={index}>{skill}</option>;
             })} */}
@@ -95,7 +98,6 @@ const Jobsearch = () => {
             </button>
           )}
         </div>
-
         {loggedin && (
           <button className={styles.addjobbtn} onClick={addJobButton}>
             + Add Job

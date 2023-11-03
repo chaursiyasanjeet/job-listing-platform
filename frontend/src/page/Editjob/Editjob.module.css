@@ -1,0 +1,152 @@
+.addjob {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addjobleft {
+    height: 100vh;
+    width: 55vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 6vw;
+}
+
+.addjobleft>h1 {
+    font-family: DM Sans;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3rem;
+    letter-spacing: 0em;
+    text-align: left;
+    position: absolute;
+    top: 2vh;
+}
+
+.jobform {
+    position: absolute;
+    top: 13vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.jobform>.jobinput {
+    display: flex;
+    align-items: baseline;
+}
+
+.jobinput>label {
+    width: 15vw;
+    font-family: DM Sans;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1)
+}
+
+.jobinput>select {
+    border: 2px solid rgba(194, 194, 194, 1);
+    border-radius: 5px;
+    font-family: DM Sans;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: 0em;
+    text-align: center;
+    color: black;
+}
+
+.jobinput>input {
+    padding-left: 1vw;
+    width: 30vw;
+    height: 4vh;
+    border: 2px solid rgba(194, 194, 194, 1);
+    border-radius: 5px;
+    font-family: DM Sans;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: black
+}
+
+.jobinput>textarea {
+    padding: 1vh 1vh 1vh 1vh;
+    width: 30vw;
+    height: 10vh;
+    border: 2px solid rgba(194, 194, 194, 1);
+    border-radius: 5px;
+    font-family: DM Sans;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: black;
+}
+
+.addjobright {
+    height: 100vh;
+    width: 45vw;
+    background-image: url("../../assets/addjob.png");
+    background-size: cover;
+    color: white;
+}
+
+.addjobright>h1 {
+    font-family: DM Sans;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 4rem;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    padding: 3vh 0 0 3vh;
+}
+
+.jobbuttons {
+    margin-top: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 11.2vw;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.canceladdJob {
+    height: 5vh;
+    width: 10vw;
+    background-color: rgba(206, 206, 206, 1);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 5vh;
+}
+
+.addjobbutton {
+    height: 5vh;
+    width: 12vw;
+    background-color: rgba(237, 83, 83, 1);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}

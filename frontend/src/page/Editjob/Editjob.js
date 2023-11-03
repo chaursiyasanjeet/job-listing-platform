@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import styles from "./Addjob.module.css";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import styles from "./Editjob.module.css";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addjob } from "../../apis/job";
+import { getJobDetails } from "../../apis/job";
+import { editjob } from "../../apis/job";
 
-const Addjob = () => {
+const Editjob = () => {
+  const redirect = useNavigate();
+  const { id } = useParams();
+
   const [companyName, setCompanyName] = useState("");
   const [addLogoURL, setAddLogoURL] = useState("");
   const [jobPosition, setJobPosition] = useState("");
@@ -18,11 +22,44 @@ const Addjob = () => {
   const [skillsRequired, setSkillsRequired] = useState("");
   const [information, setInformation] = useState();
 
-  const redirect = useNavigate();
+  useEffect(() => {
+    async function fetchJobDetails() {
+      const res = await getJobDetails(id);
+      if (res && res.jobdetails) {
+        const {
+          companyName,
+          logoUrl,
+          jobPosition,
+          salary,
+          jobType,
+          mode,
+          location,
+          jobDescription,
+          aboutCompany,
+          additionalInformation,
+          skills,
+        } = res.jobdetails;
+
+        setCompanyName(companyName);
+        setAddLogoURL(logoUrl);
+        setJobPosition(jobPosition);
+        setMonthlySalary(salary);
+        setJobType(jobType);
+        setRemoteOffice(mode);
+        setJobLocation(location);
+        setJobDescription(jobDescription);
+        setAboutCompany(aboutCompany);
+        setInformation(additionalInformation);
+        setSkillsRequired(skills);
+      }
+    }
+    fetchJobDetails();
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await addjob(
+    const result = await editjob(
+      id,
       companyName,
       addLogoURL,
       jobPosition,
@@ -35,8 +72,9 @@ const Addjob = () => {
       skillsRequired,
       information
     );
+    console.log(result);
     if (result.status === 200) {
-      toast.success("Job add successfull");
+      toast.success("Job Update successfull");
       setTimeout(() => {
         redirect("/");
       }, 5000);
@@ -172,11 +210,11 @@ const Addjob = () => {
               Cancel
             </button>
             <button
-              type="submit"
               className={styles.addjobbutton}
+              type="submit"
               onClick={handleSubmit}
             >
-              + Add Job
+              + Update Job
             </button>
           </div>
         </form>
@@ -200,4 +238,4 @@ const Addjob = () => {
   );
 };
 
-export default Addjob;
+export default Editjob;

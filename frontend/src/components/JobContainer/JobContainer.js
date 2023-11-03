@@ -3,29 +3,13 @@ import styles from "./JobContainer.module.css";
 import people from "../../assets/people.svg";
 import flag from "../../assets/flag.png";
 import { useNavigate } from "react-router-dom";
-const JobContainer = () => {
-  const navigate = useNavigate();
-
-  const getJobDetails = () => {
-    navigate(`/editJob/${job._id}`);
-  };
+const JobContainer = (job) => {
+  const redirect = useNavigate();
 
   const handleViewDetails = (e) => {
-    // setJobId(job._id);
-    // navigate(`/${job._id}`);
-  };
-  const job = {
-    companyName: "sanjeet",
-    logoUrl:
-      "https://graphicsfamily.com/wp-content/uploads/edd/2020/04/3D-Logo-Design-JPEG-2048x2048.jpg",
-    jobPosition: "Backend Developer",
-    jobType: "part time",
-    mode: "on site",
-    location: "India",
-    jobDescription: "Freshere with so",
-    aboutCompany: "Gogfle is nk",
-    skills: ["react", "html", "CSS", "Javascript"],
-    monthlySalary: "50000",
+    e.preventDefault();
+    const id = job.id;
+    redirect(`/jobdetails/${id}`);
   };
 
   return (
@@ -38,8 +22,11 @@ const JobContainer = () => {
           <span>{job.jobPosition}</span>
           <div className={styles.seconddivtext}>
             <img src={people} alt="group" />
-            <span>11-50 </span>
-            <span>₹ {job.monthlySalary}</span>
+            <span>
+              {Math.floor(Math.random() * 10)}-
+              {Math.floor(Math.random() * 50) + 10}
+            </span>
+            <span>₹ {job.salary}</span>
           </div>
           <div className={styles.seconddivfooter}>
             <span>{job.mode}</span>
@@ -62,7 +49,6 @@ const JobContainer = () => {
           })}
         </div>
         <div className={styles.jobrightlower}>
-          {/* {loggedIn ? <button onClick={getJobDetails}>Edit Job</button> : null} */}
           <button onClick={handleViewDetails}>View Details</button>
         </div>
       </div>
