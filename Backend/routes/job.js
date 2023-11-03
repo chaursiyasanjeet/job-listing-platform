@@ -16,7 +16,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       jobDescription,
       aboutCompany,
       skills,
-      additionalIformation,
+      additionalInformation,
       salary,
     } = req.body;
 
@@ -47,7 +47,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       jobDescription,
       aboutCompany,
       skills,
-      additionalIformation,
+      additionalInformation,
       salary,
       createdAt: new Date(),
     });
@@ -75,7 +75,7 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
       jobDescription,
       aboutCompany,
       skills,
-      additionalIformation,
+      additionalInformation,
     } = req.body;
     const id = req.params.id;
 
@@ -90,7 +90,7 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
         jobDescription,
         aboutCompany,
         skills,
-        additionalIformation,
+        additionalInformation,
       },
     });
     res.status(200).json({
