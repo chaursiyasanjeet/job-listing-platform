@@ -5,7 +5,9 @@ import Addjob from "./page/Addjob/Addjob";
 import Homepage from "./page/Homepage/Homepage";
 import Jobdetails from "./page/Jobdetails/Jobdetails";
 import Editjob from "./page/Editjob/Editjob";
+import axios from "axios";
 function App() {
+  axios.defaults.withCredentials = true;
   return (
     <Router>
       <Routes>
