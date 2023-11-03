@@ -10,21 +10,22 @@ const Homepage = () => {
     <>
       <Navbar />
       <Jobsearch />
-      {result.jobs.map((item, index) => {
-        return (
-          <JobContainer
-            companyName={item.companyName}
-            jobPosition={item.jobPosition}
-            jobType={item.jobType}
-            logoUrl={item.logoUrl}
-            mode={item.mode}
-            skills={item.skills}
-            id={item._id}
-            salary={item.salary}
-            key={index}
-          />
-        );
-      })}
+      {result &&
+        result.jobs.map((item, index) => {
+          return (
+            <JobContainer
+              companyName={item.companyName}
+              jobPosition={item.jobPosition}
+              jobType={item.jobType}
+              logoUrl={item.logoUrl}
+              mode={item.mode}
+              skills={item.skills}
+              id={item._id}
+              salary={item.salary}
+              key={index}
+            />
+          );
+        })}
     </>
   );
 };
