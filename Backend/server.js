@@ -2,17 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const auth = require("./routes/auth");
-const job = require("./routes/job");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
-app.use(cors());
+
+const auth = require("./routes/auth");
+const job = require("./routes/job");
 
 app.get("/health", (req, res) => {
   res.status(200).json({
