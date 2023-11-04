@@ -7,19 +7,12 @@ const job = require("./routes/job");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
-dotenv.config();
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(
-  cors({
-    origin: ["https://job-listing-platform-q6yx.vercel.app"],
-    methods: ["GET", "POST", "PUT"],
-    credentials: true,
-  })
-);
+dotenv.config();
+app.use(cors());
 
 app.get("/health", (req, res) => {
   res.status(200).json({
