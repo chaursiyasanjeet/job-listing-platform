@@ -10,17 +10,10 @@ const cors = require("cors");
 dotenv.config();
 const app = express();
 
-app.use(
-  cors({
-    origin: ["https://job-listing-platform-q6yx.vercel.app"],
-    methods: ["GET", "POST", "PUT"],
-    credentials: true,
-  })
-);
-
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get("/health", (req, res) => {
   res.status(200).json({
