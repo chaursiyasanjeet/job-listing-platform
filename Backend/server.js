@@ -12,11 +12,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://job-listing-platform-q6yx.vercel.app",
+    origin: ["https://job-listing-platform-q6yx.vercel.app"],
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
+
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
