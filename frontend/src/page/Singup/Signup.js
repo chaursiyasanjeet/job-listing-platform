@@ -54,7 +54,7 @@ const Signup = () => {
     const valid = validateForm(name, email, mobile, password);
     if (valid) {
       const result = await register(name, email, mobile, password);
-      if (result.status === "SUCCESS") {
+      if (result) {
         const result2 = await login(email, password);
         localStorage.setItem(
           "recuirterDetail",
@@ -77,7 +77,7 @@ const Signup = () => {
   return (
     <main>
       <section className={styles.formContainer}>
-        <form className={styles.form} onSubmit={handleSumbit}>
+        <form className={styles.form}>
           <div className={styles.formtitle}>
             <span>Create an account?</span>
             <span>Your Personal job finder is here</span>
@@ -141,7 +141,7 @@ const Signup = () => {
               policy
             </span>
           </div>
-          <button type="submit" className={styles.button}>
+          <button className={styles.button} onClick={handleSumbit}>
             Create Account
           </button>
         </form>
