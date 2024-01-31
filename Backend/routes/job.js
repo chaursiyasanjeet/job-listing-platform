@@ -6,6 +6,7 @@ const { findById, find } = require("../models/user");
 
 router.post("/addjob", isLoggedIn, async (req, res, next) => {
   try {
+    console.log(req.userExist);
     const {
       companyName,
       logoUrl,
@@ -32,7 +33,6 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       !skills ||
       !salary
     ) {
-      console.log(req.body);
       res.json({
         message: "field empty",
       });
@@ -50,6 +50,7 @@ router.post("/addjob", isLoggedIn, async (req, res, next) => {
       additionalInformation,
       salary,
       createdAt: new Date(),
+      createdBy: req.userExist.email,
     });
     await job.save();
     res.status(200).json({
