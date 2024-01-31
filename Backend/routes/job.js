@@ -92,6 +92,8 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
         aboutCompany,
         skills,
         additionalInformation,
+        createdAt: new Date(),
+        createdBy: req.userExist.email,
       },
     });
     res.status(200).json({
