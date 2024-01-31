@@ -11,6 +11,7 @@ const Signup = () => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState(false);
+  const [buttonState, setButtonState] = useState(false);
 
   const validateForm = (name, email, mobile, password) => {
     let error;
@@ -53,8 +54,9 @@ const Signup = () => {
     e.preventDefault();
     const valid = validateForm(name, email, mobile, password);
     if (valid) {
+      setButtonState(true);
       const result = await register(name, email, mobile, password);
-      if (result) {
+      if (result.mesage === "User registered successfully") {
         const result2 = await login(email, password);
         localStorage.setItem(
           "recuirterDetail",
@@ -65,10 +67,14 @@ const Signup = () => {
           })
         );
         toast.success(result.message);
+        setButtonState(false);
         setTimeout(() => {
           redirect("/");
         }, 2000);
       } else {
+        setTimeout(() => {
+          setButtonState(false);
+        }, 1000);
         toast.error(result.mesage);
       }
     }
@@ -141,7 +147,11 @@ const Signup = () => {
               policy
             </span>
           </div>
-          <button className={styles.button} onClick={handleSumbit}>
+          <button
+            className={styles.button}
+            onClick={handleSumbit}
+            disabled={buttonState}
+          >
             Create Account
           </button>
         </form>

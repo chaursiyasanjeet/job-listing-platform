@@ -4,13 +4,14 @@ import styles from "./Jobsearch.module.css";
 import searchIcon from "../../assets/search.svg";
 import { jobsearch } from "../../apis/job";
 
-const Jobsearch = () => {
-  const [searchValue, setSearchValue] = useState("");
+const Jobsearch = (props) => {
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [searchValue, setSearchValue] = useState();
   const [loggedin, setloggedin] = useState(false);
   const redirect = useNavigate();
 
   const tokenTime = JSON.parse(localStorage.getItem("recuirterDetail"));
+
   useEffect(() => {
     const currentTime = new Date().getTime();
     const logg =
@@ -22,9 +23,23 @@ const Jobsearch = () => {
     setloggedin(logg);
   }, [tokenTime]);
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const result = await jobsearch(searchValue, selectedSkills);
+        if (result && result.jobs) {
+          props.sendJob(result.jobs);
+        }
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, [selectedSkills, searchValue]);
+
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
-    // getJobListings(searchTerm, selectedSkills);
   };
 
   const handleSelectChange = (e) => {
@@ -32,26 +47,16 @@ const Jobsearch = () => {
     if (skill && !selectedSkills.includes(skill)) {
       const updatedSkills = [...selectedSkills, skill];
       setSelectedSkills(updatedSkills);
-      //   getJobListings(searchTerm, updatedSkills);
     }
   };
 
   const handleRemoveSkill = (skill) => {
     const updatedSkills = selectedSkills.filter((item) => item !== skill);
     setSelectedSkills(updatedSkills);
-    // getJobListings(searchTerm, updatedSkills);
   };
 
   const clearSkills = () => {
     setSelectedSkills([]);
-    // getJobListings(searchTerm, []);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // Perform search operation with the search term and selected skills
-    console.log("Search Term:", searchValue);
-    console.log("Selected Skills:", selectedSkills);
   };
 
   const addJobButton = () => {
@@ -60,7 +65,7 @@ const Jobsearch = () => {
 
   return (
     <div className={styles.jobsearch}>
-      <form className={styles.searchform} onSubmit={handleSearchSubmit}>
+      <form className={styles.searchform}>
         <div className={styles.searchbar}>
           <img src={searchIcon} alt="Search Icon" />
           <input
@@ -74,10 +79,18 @@ const Jobsearch = () => {
       <div className={styles.jobsearchFooter}>
         <div className={styles.selectskills}>
           <select value={selectedSkills} onChange={handleSelectChange}>
-            <option value="">Skills</option>
-            {/* {skills.map((skill, index) => {
-              return <option key={index}>{skill}</option>;
-            })} */}
+            <option value="" hidden>
+              Skills
+            </option>
+            <option value="React">React</option>
+            <option value="Javascript">Javascript</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="mongodb">Mongo DB</option>
+            <option value="Express JS">Express JS</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="Figma">Figma</option>
           </select>
           <div className={styles.selectedskills}>
             {selectedSkills.map((skill) => (

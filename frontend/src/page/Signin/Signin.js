@@ -10,6 +10,7 @@ const Signin = () => {
     email: "",
     password: "",
   });
+  const [buttonState, setButtonState] = useState(false);
 
   const handlechange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -30,6 +31,7 @@ const Signin = () => {
     e.preventDefault();
     const valid = validateForm(user.email, user.password);
     if (valid) {
+      setButtonState(true);
       const result = await login(user.email, user.password);
       if (result.status === "SUCCESS") {
         localStorage.setItem(
@@ -41,10 +43,14 @@ const Signin = () => {
           })
         );
         toast.success(result.message);
+        setButtonState(false);
         setTimeout(() => {
           redirect("/");
         }, 2000);
       } else {
+        setTimeout(() => {
+          setButtonState(false);
+        }, 1000);
         toast.error(result.message);
       }
     }
@@ -75,7 +81,11 @@ const Signin = () => {
             required
             className={styles.input}
           />
-          <button type="submit" className={styles.button}>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={buttonState}
+          >
             Sign in
           </button>
         </form>

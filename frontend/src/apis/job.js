@@ -46,11 +46,17 @@ export const addjob = async (
   }
 };
 
-export const jobsearch = async () => {
+export const jobsearch = async (search, skills) => {
   try {
     const requrl = `${backendURL}/getjobs`;
-
-    const response = await axios.get(requrl);
+    const queryParameters = {
+      search,
+      skills: skills.join(","), // Convert skills array to a comma-separated string
+    };
+    console.log(queryParameters);
+    const response = await axios.get(requrl, {
+      params: queryParameters,
+    });
     return response.data;
   } catch (error) {
     if (error) {
