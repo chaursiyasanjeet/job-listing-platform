@@ -109,21 +109,23 @@ router.put("/editJob/:id", isLoggedIn, async (req, res) => {
 router.get("/getjobs", async (req, res) => {
   try {
     const { search, skills } = req.query;
-    console.log(req.query);
 
     // Create a case-insensitive regex for the search parameter
-    const searchRegex = new RegExp(search, "i");
+    let searchRegex = new RegExp(search, "i");
 
     // Create a case-insensitive regex for each skill in the skills array
-    const skillsRegexArray = skills
-      .split(",")
-      .map((skill) => new RegExp(skill.trim(), "i"));
+    let skillsRegexArray;
+    if (skills) {
+      skillsRegexArray = skills
+        .split(",")
+        .map((skill) => new RegExp(skill.trim(), "i"));
+    }
 
     // Combine the search and skills queries using $regex and $all
     const jobQuery = {
       $and: [
         { jobPosition: { $regex: searchRegex } },
-        { skills: { $all: skillsRegexArray } },
+        ...(skillsRegexArray ? [{ skills: { $all: skillsRegexArray } }] : []),
       ],
     };
 
@@ -140,7 +142,7 @@ router.get("/getjobs", async (req, res) => {
 
     res.status(200).json({ jobs });
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
